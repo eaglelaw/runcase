@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite id="59" name="runcase_mbt_connect_test" >
+<node_order><![CDATA[1]]></node_order>
+<details><![CDATA[<p>用于测试对象的重置和连接测试</p>
+
+<p>通过前导码连接对象，执行查询版本命令</p>
+
+<p>&nbsp;</p>
+]]></details> 
+
+<testcase internalid="67" name="V">
+	<node_order><![CDATA[0]]></node_order>
+	<externalid><![CDATA[3]]></externalid>
+	<version><![CDATA[1]]></version>
+	<summary><![CDATA[]]></summary>
+	<preconditions><![CDATA[<p>set test parameter</p>
+]]></preconditions>
+	<execution_type><![CDATA[2]]></execution_type>
+	<importance><![CDATA[2]]></importance>
+	<estimated_exec_duration></estimated_exec_duration>
+	<status>1</status>
+	<is_open>1</is_open>
+	<active>1</active>
+<steps>
+<step>
+	<step_number><![CDATA[1]]></step_number>
+	<actions><![CDATA[<p>COMx</p>
+
+<p>&#39;COM10&#39;</p>
+]]></actions>
+	<expectedresults><![CDATA[]]></expectedresults>
+	<execution_type><![CDATA[2]]></execution_type>
+</step>
+</steps>
+</testcase>
+
+<testcase internalid="70" name="V1">
+	<node_order><![CDATA[1]]></node_order>
+	<externalid><![CDATA[4]]></externalid>
+	<version><![CDATA[1]]></version>
+	<summary><![CDATA[]]></summary>
+	<preconditions><![CDATA[<p>MAC &lsquo;1234567890&rsquo;</p>
+]]></preconditions>
+	<execution_type><![CDATA[2]]></execution_type>
+	<importance><![CDATA[2]]></importance>
+	<estimated_exec_duration></estimated_exec_duration>
+	<status>1</status>
+	<is_open>1</is_open>
+	<active>1</active>
+<steps>
+<step>
+	<step_number><![CDATA[1]]></step_number>
+	<actions><![CDATA[<p>MAC</p>
+
+<p>&#39;12345678&#39;</p>
+]]></actions>
+	<expectedresults><![CDATA[]]></expectedresults>
+	<execution_type><![CDATA[2]]></execution_type>
+</step>
+</steps>
+</testcase>
+
+<testcase internalid="60" name="Case-1">
+	<node_order><![CDATA[2]]></node_order>
+	<externalid><![CDATA[1]]></externalid>
+	<version><![CDATA[1]]></version>
+	<summary><![CDATA[<p>do autotest</p>
+]]></summary>
+	<preconditions><![CDATA[<p>connect to RC48M</p>
+]]></preconditions>
+	<execution_type><![CDATA[2]]></execution_type>
+	<importance><![CDATA[2]]></importance>
+	<estimated_exec_duration></estimated_exec_duration>
+	<status>7</status>
+	<is_open>1</is_open>
+	<active>1</active>
+<steps>
+<step>
+	<step_number><![CDATA[1]]></step_number>
+	<actions><![CDATA[<p>boot.connect</p>
+
+<p>COMx &#39;URC48M&#39;</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>cmd</p>
+]]></expectedresults>
+	<execution_type><![CDATA[2]]></execution_type>
+</step>
+</steps>
+</testcase>
+
+<testcase internalid="64" name="Case-2">
+	<node_order><![CDATA[3]]></node_order>
+	<externalid><![CDATA[2]]></externalid>
+	<version><![CDATA[1]]></version>
+	<summary><![CDATA[]]></summary>
+	<preconditions><![CDATA[<p>check baudrate</p>
+]]></preconditions>
+	<execution_type><![CDATA[2]]></execution_type>
+	<importance><![CDATA[2]]></importance>
+	<estimated_exec_duration></estimated_exec_duration>
+	<status>1</status>
+	<is_open>1</is_open>
+	<active>1</active>
+<steps>
+<step>
+	<step_number><![CDATA[1]]></step_number>
+	<actions><![CDATA[<p>boot.baudrate</p>
+]]></actions>
+	<expectedresults><![CDATA[<p>115200</p>
+]]></expectedresults>
+	<execution_type><![CDATA[2]]></execution_type>
+</step>
+</steps>
+</testcase>
+</testsuite>

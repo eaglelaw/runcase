@@ -1,0 +1,5 @@
+#runcase_mbt_connect_test1
+V2,COMx,'COM10',,,set test parameter,
+V3,MAC,'12345678',,,MAC ¡®1234567890¡¯,
+Case-3,boot.connect,COMx 'URC48M',cmd,do autotest,connect to RC48M,
+Case-4,boot.baudrate,,115200,,check baudrate,

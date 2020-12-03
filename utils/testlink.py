@@ -4,14 +4,10 @@ import pathlib
 import html
 
 
-def processTree(tree):
+def processTree(tree, f):
 	output = ''
 	root = tree.getroot()
 	max_depth = findDepth(root)
-
-	output_filename = pathlib.Path(sys.argv[1]).stem + '.csv'
-	f = open(output_filename, "w", encoding="utf-8")
-
 
 	processTestSuite(root, f, [], max_depth)
 
@@ -93,10 +89,99 @@ def processLine(testsuite, file, parents, max_depth):
 		file.write('\n')
 
 
-def testlink_to_csv(xml_path):
+def testlink_to_csv(xml_path,f):
 	tree = ElementTree()
 	tree.parse(xml_path)
-	processTree(tree)
+	processTree(tree,f)
 	
+
+from xml.dom import minidom
+import html
+
+class Testsuite:
+
+	def __init__(self,name):
+		self.case_list = []
+		self.dom = minidom.Document()
+		self.root_node = self.dom.createElement('testsuite')
+		self.dom.appendChild(self.root_node)
+		self.root_node.setAttribute('name', name)
+
+	def add_Commonts(self, detail_info):
+		detail_node = self.dom.createElement('details')
+		cdata_text = self.dom.createCDATASection(detail_info)
+		detail_node.appendChild(cdata_text)
+		self.root_node.appendChild(detail_node)
+
+
+	#method get TestCase --> return an existing instance of the TestCase or creates it in the dictionary
+	def add_TestCase(self,name, case_cmd, case_param = '', expected_result = 'True', summary = '', preconditions = ''):
+		print('	testcase name:',name)
+		if name in self.case_list:
+			print('Error: Duplicate case name <',name,'>')
+			return False
+			
+		self.case_list.append(name)
+		
+		case_node = self.dom.createElement('testcase')
+		case_node.setAttribute('name', name)
+		
+		summary_node = self.dom.createElement('summary')
+		cdata_text = self.dom.createCDATASection(summary)
+		summary_node.appendChild(cdata_text)
+		case_node.appendChild(summary_node)
+		
+		preconditions_node = self.dom.createElement('preconditions')
+		cdata_text = self.dom.createCDATASection(preconditions)
+		preconditions_node.appendChild(cdata_text)
+		case_node.appendChild(preconditions_node)
+		
+		execution_type_node = self.dom.createElement('execution_type')
+		cdata_text = self.dom.createCDATASection('2')
+		execution_type_node.appendChild(cdata_text)
+		case_node.appendChild(execution_type_node)
+		
+		#add steps sould only have one step for runcase tool
+		#steps
+		steps_node = self.dom.createElement('steps')
+		case_node.appendChild(steps_node)
+		
+		#add step
+		step_node = self.dom.createElement('step')
+		steps_node.appendChild(step_node)
+		
+		#expected_result
+		step_number_node = self.dom.createElement('step_number')
+		cdata_text = self.dom.createCDATASection('1')
+		step_number_node.appendChild(cdata_text)
+		step_node.appendChild(step_number_node)
+		
+		#actions as case_cmd + case_param
+		actions_node = self.dom.createElement('actions')
+		actions = case_cmd
+		if(case_param is not ''):
+			actions = actions + '\n' + case_param
+		cdata_text = self.dom.createCDATASection(actions)
+		actions_node.appendChild(cdata_text)
+		step_node.appendChild(actions_node)
+		
+		#expected_result
+		expected_result_node = self.dom.createElement('expected_result')
+		cdata_text = self.dom.createCDATASection(expected_result)
+		expected_result_node.appendChild(cdata_text)
+		step_node.appendChild(expected_result_node)
+		
+		self.root_node.appendChild(case_node)
+		
+		return True
+
+	#methods print xml --> build the xml file from the instances of the objects created
+	#the method calls itself as there can be TestSuite parents of other TestSuites; as we "get" an instance of a test suite, we also get the dictionary associated
+	#we can then loop through each key of that dictionary, until we get to the testcases dictionary
+	#after going through all entries, we append the xml tags in the end
+	def print_xml(self, fname):
+		fp = open(fname, 'w', encoding = 'UTF-8')
+		self.dom.writexml(fp, indent='',newl='\n',encoding='UTF-8')
+		fp.close()
 
 
