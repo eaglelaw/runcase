@@ -10,6 +10,7 @@ g_baudrate = ['',0]
 g_connection = None
 
 #merge continued partition to one segment, no 64K boundary limitation
+#[[addr, data],...]
 def hexfile_analyze(fpath,entry_addr = None):
 	new_data = []
 	seg_list = hex2bin.read_hex(fpath)
