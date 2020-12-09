@@ -75,7 +75,7 @@ def boot_hexf(primary, alternate = None, alt_active = False, alt_addr = 0x100000
 	gw_report.clear()
 	
 	ih = IH()
-	bs_word = [0xffffffff]* (int(4096/4));
+	bs_word = [0xffffffff]* (int(8192/4));
 	
 	#primary
 	#[[raddr,data]..]
@@ -121,7 +121,7 @@ def boot_hexf(primary, alternate = None, alt_active = False, alt_addr = 0x100000
 			ih.puts(faddr, bytes(alt_data[i][1]))
 			faddr += (size + 3)&0xfffffffc # word aligned
 	
-	bs_byte = [0xff]*4096
+	bs_byte = [0xff]*8192
 	for i in range(0,4096,4):
 		tmp = bs_word[int(i/4)]
 		bs_byte[i] = tmp & 0xff
@@ -200,6 +200,9 @@ def boot_cmdprog_hexf(hexf_path, xmmode1k = False):
 	gw_report.clear()
 	
 	data = func.hexfile_analyze(hexf_path)
+	#print(hex(data[0][0]), hex(len(data[0][1])))
+	#print(hex(data[1][0]), hex(len(data[1][1])))
+	#return
 	#print(data)
 	for itm in data:
 		#progr [addr, size]
