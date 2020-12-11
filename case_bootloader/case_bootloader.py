@@ -137,7 +137,7 @@ def boot_hexf(primary, alternate = None, alt_active = False, alt_addr = 0x100000
 	
 #program with boot sector, idx = 0 is boot segment
 #path should be a hex file, and the hex file should onluy contain ONE segment
-def boot_cmduartrun(path, faddr, xmmode1k = False):
+def boot_uartrun(path, faddr, xmmode1k = False):
 	ret = False
 	rsp = None
 	gw_report.clear()
@@ -165,7 +165,7 @@ def boot_cmduartrun(path, faddr, xmmode1k = False):
 
 #program with boot sector, idx = 0 is boot segment
 #path should be a hex file
-def boot_cmdprog_bin(path, faddr, xmmode1k = False):
+def boot_prog_bin(path, faddr, xmmode1k = False):
 	ret = False
 	rsp = None
 	gw_report.clear()
@@ -194,7 +194,7 @@ def boot_cmdprog_bin(path, faddr, xmmode1k = False):
 
 #program with hexf file
 #hexf file is flash image file, the segment will map to flash directly
-def boot_cmdprog_hexf(hexf_path, xmmode1k = False):
+def boot_prog_hexf(hexf_path, xmmode1k = False):
 	ret = True
 	rsp = None
 	gw_report.clear()
@@ -221,8 +221,105 @@ def boot_cmdprog_hexf(hexf_path, xmmode1k = False):
 
 	return gw_report.result(str(ret))
 	
+	
+def boot_wrreg(reg, value):
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('wrreg', [hex(reg), hex(value)])
+	#print(ret)
+
+	return gw_report.result(str(ret))
+
+def boot_rdreg(reg):
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('rdreg', [hex(reg)])
+	#print(ret)
+
+	return gw_report.result(str(ret))
+	
+
+# erase chip	
+def boot_erfcp():
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('erfcp', None, 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))		
+
+# erase all
+def boot_erall():
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('erall', None, 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))
+
+# erase sector 0
+def boot_etfsf():
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('etfsf', None, 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))
+
+# erase sector 0x1000
+def boot_etssf():
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('etssf', None, 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))
+
+#
+def boot_era4k(faddr):
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('era4k', [hex(faddr)], 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))
+
+def boot_er64k(faddr):
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('er64k', [hex(faddr)], 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))
+
+def boot_write(faddr, value):
+	ret = False
+	rsp = None
+	gw_report.clear()
+
+	ret, rsp = func.cmd('write', [hex(faddr), hex(value)], 5)
+	#print(ret)
+
+	return gw_report.result(str(ret))
+	
 #just do xmodem transmit
-def boot_cmdxmdm(path):
+def boot_util_xmdm(path):
 	ret = True
 	rsp = None
 	gw_report.clear()
