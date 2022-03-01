@@ -51,6 +51,7 @@ def case_register():
 			if item.startswith('def') and item.endswith('py'):
 				file = item.split(".")[0]			#def_rawpass
 				case_name = file.split('_')[1]		#rawpass
+				#print(case_name)
 				case_obj = importlib.import_module('case_'+case_name+'.case_'+case_name)		#rawpass.case_rawpass
 				case_info = importlib.import_module('case_'+case_name+'.'+file).INFO 			#case_rawpass.INFO
 				case_info['obj'] = case_obj

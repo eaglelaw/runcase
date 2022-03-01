@@ -57,7 +57,7 @@ def csv_parse(fname):
 	global list_tstcase_cmd
 	ret = False
 	try:
-		csvfile = open('./csv/'+fname, 'r')
+		csvfile = open(fname, 'r')
 	except:
 		print('Error: Open file <%s> failed '%fname)
 		return False
@@ -399,33 +399,33 @@ def get_param(param):
 	loop = 1 # defalut is 1
 	
 	#print(param)
-	for str in param:
+	for parastr in param:
 		#check plan file: aaa.csv
-		f_ext = str[-4:]
+		f_ext = parastr[-4:]
 		if(f_ext == '.csv'):
-			filename = str;
+			filename = parastr;
 			continue
-		opt = str[0:2]
+		opt = parastr[0:2]
 		
 		if opt == '-L': #loop option
-			if str[2:3] is '': # the option no parameter
+			if parastr[2:3] == '': # the option no parameter
 				loop = 1000000 # use max times
 				continue
 			else:
-				str_cnt = str[3:]
+				str_cnt = parastr[3:]
 				if str_cnt.isdigit() is False:
 					return None
 				loop = int(str_cnt)
 				continue
 		
 		if opt == '-R': #random execute plan
-			if str[2:3] != '':
+			if parastr[2:3] != '':
 				return None
 			rnd_exe = True
 			continue
 			
 		if opt == '-M': #monitoring mode
-			mopt = str[2:]
+			mopt = parastr[2:]
 			if mopt != '':
 				s = mopt.find(':')
 				mval = mopt[(s+1):]
@@ -436,8 +436,8 @@ def get_param(param):
 				monitoring_py = 'gw_monitor.py'
 			continue
 			
-		if opt == '-C' and str[2:3]==':': #case select option
-			caseopt = str[3:]
+		if opt == '-C' and parastr[2:3]==':': #case select option
+			caseopt = parastr[3:]
 			s = caseopt.find(':')
 			if s > 0:
 				casestart = caseopt[:s]
@@ -451,9 +451,9 @@ def get_param(param):
 			caseend = caseopt
 			continue
 			
-		if opt == '-I' and str[2:3]==':': #interval opetion
+		if opt == '-I' and parastr[2:3]==':': #interval opetion
 			intv = []
-			str_intv = str[3:]
+			str_intv = parastr[3:]
 			if str_intv.isdigit():
 				intv.append(int(str_intv))
 				continue

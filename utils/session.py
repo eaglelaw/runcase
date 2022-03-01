@@ -14,6 +14,8 @@ ss_dict = {
 	'WRIST_SERVER':(50002),	#localhost
 	'OTA_MOBILE':(50000),	#LAN, connected to mobile
 	'OTA_SESSION':(50003),	#localhost
+	'BLE_MOBILE':(50000),	#LAN, connected to mobile
+	'BLE_SESSION':(50003),	#localhost
 	'DUMMY':(50032,1)
 }
 
@@ -74,13 +76,18 @@ REQTP = 0
 REQLEN = 1
 REQVAL = 2
 
+
+#sample, field QOVF is flag for queue push overflow
+#g_q_mobile_rsp = ['BLEMobileRspQueue', False,[]]
+
 QNAME = 0
 QOVF = 1
 QLST = 2
+QSIZE = 128
 
 
 #default queue size = 16
-def q(qlist, msg, qsize = 16):
+def q(qlist, msg, qsize = QSIZE):
 	#print(qlist,msg)
 	if(len(qlist[QLST]) >= qsize):
 		print('queue overflow!', qlist[QNAME])

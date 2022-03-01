@@ -44,7 +44,7 @@ def connect(host, port, timeout):
 		sock.connect((host, port))  
 	except(socket.error):
 		print('time out');
-		os._exit()
+		os._exit(1)
 	return sock;
 
 
@@ -64,11 +64,11 @@ def send(sock, msg):
 def recv(sock):
 	ret = ''
 	try:
-		ret = sock.recv(1024).decode()
+		ret = sock.recv(1024*100).decode()
 		#print(ret)
 	except(socket.error):
 		print('time out');
-		os._exit()
+		os._exit(1)
 	return ret
 
 

@@ -76,7 +76,7 @@ def main(argv):
 	#start load session
 	for ss in slist:
 		try:
-			imstr = 'from '+ss[0].split('_')[1]+' import '+ss[0]
+			imstr = 'from case_'+ss[0].split('_')[1]+' import '+ss[0]
 			exec(imstr)
 			ss_start = eval(ss[0]+'.start')
 			ss_start(ss[1:])
